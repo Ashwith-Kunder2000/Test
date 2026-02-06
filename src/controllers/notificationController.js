@@ -46,4 +46,3 @@ exports.cancelNotification = async (req, res) => {
   }
 };
 
-console.log(NOW());
