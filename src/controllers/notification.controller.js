@@ -44,5 +44,15 @@ exports.cancelNotification = async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Failed to cancel notification' });
   }
+
+  exports.getNotifications = async (req, res) => {
+  const result = await pool.query(`
+    SELECT id, template_code, status, sentat
+    FROM notifications
+    ORDER BY created_at DESC
+  `);
+
+  res.json(result.rows);
+};
 };
 

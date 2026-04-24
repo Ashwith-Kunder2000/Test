@@ -1,11 +1,12 @@
 const express = require('express');
-require('../config/dbConfig');   // ✅ correct path
-const notificationRoutes = require('./routes/notificationRoute');
-
+const tokenRoutes = require('./routes/token.routes');
+const notificationRoutes = require('./routes/notification.routes');
 
 const app = express();
 
 app.use(express.json());
+
+app.use('/api/token', tokenRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-module.exports = app;           // ✅ correct export
+module.exports = app;

@@ -1,0 +1,3 @@
+web: node src/server.js
+worker: node src/jobs/notification.js
+escalation: node src/jobs/escalation.job.js
