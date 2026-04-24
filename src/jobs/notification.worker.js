@@ -1,6 +1,6 @@
 const pool = require('../../config/dbConfig');
 const Mustache = require('mustache');
-const { sendEmail } = require('../services/emailService');
+const { sendEmail } = require('../services/email.service');
 
 async function runWorker() {
   const client = await pool.connect();

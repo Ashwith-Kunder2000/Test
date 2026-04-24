@@ -24,28 +24,25 @@ exports.cancelNotification = async (req, res) => {
     const { id } = req.query;
 
     const { rowCount } = await pool.query(
-      `
-      UPDATE ${SCHEMA}.notifications
-      SET status = 'CANCELLED'
-      WHERE id = $1
-      AND status = 'PENDING'
-      `,
+      `UPDATE ${SCHEMA}.notifications
+       SET status = 'CANCELLED'
+       WHERE id = $1 AND status = 'PENDING'`,
       [id]
     );
 
     if (rowCount === 0) {
       return res.status(400).json({
-        message: 'Notification cannot be cancelled (already processed or not found)'
+        message: 'Notification cannot be cancelled'
       });
     }
 
     res.json({ message: 'Notification cancelled successfully' });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Failed to cancel notification' });
   }
+};
 
-  exports.getNotifications = async (req, res) => {
+exports.getNotifications = async (req, res) => {
   const result = await pool.query(`
     SELECT id, template_code, status, sentat
     FROM notifications
@@ -54,5 +51,3 @@ exports.cancelNotification = async (req, res) => {
 
   res.json(result.rows);
 };
-};
-
