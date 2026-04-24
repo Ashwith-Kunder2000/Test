@@ -27,3 +27,14 @@ exports.createToken = async (req, res) => {
 
   res.json({ message: 'Token created', id: r.id });
 };
+
+exports.approveToken = async (req, res) => {
+  const { requestId } = req.body;
+
+  await pool.query(
+    `UPDATE token_requests SET status = 'APPROVED' WHERE id = $1`,
+    [requestId]
+  );
+
+  res.json({ message: 'Token approved' });
+};
